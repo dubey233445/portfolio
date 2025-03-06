@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills - Ashish</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2ecc71;
+            --secondary-color: #27ae60;
+            --background-light: rgba(255, 255, 255, 0.9);
+            --text-dark: #2c3e50;
+            --text-light: #ecf0f1;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a, #2c3e50);
+            min-height: 100vh;
+            color: var(--text-light);
+            padding: 2rem;
+        }
+
+        .skills-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform: translateY(50px);
+            opacity: 0;
+            transition: var(--transition);
+            cursor: pointer;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .skill-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .skill-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .skill-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 80%;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .skill-items {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .skill-item {
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .skill-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(10px);
+        }
+
+        .skill-item i {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .skills-container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+
+            .skill-card {
+                margin-bottom: 1.5rem;
+            }
+
+            .skill-title {
+                font-size: 1.3rem;
+            }
+
+            .skill-item {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 1rem;
+            }
+
+            .skill-card {
+                padding: 1rem;
+            }
+
+            .skill-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="skills-container">
+        <!-- Programming Card -->
+        <div class="skill-card">
+            <h3 class="skill-title">Programming</h3>
+            <ul class="skill-items">
+                <li class="skill-item"><i class="fab fa-python"></i>Python</li>
+                <li class="skill-item"><i class="fas fa-chart-line"></i>R</li>
+                <li class="skill-item"><i class="fab fa-java"></i>Java</li>
+                <li class="skill-item"><i class="fas fa-database"></i>SQL</li>
+            </ul>
+        </div>
+
+        <!-- Mathematics & Statistics Card -->
+        <div class="skill-card">
+            <h3 class="skill-title">Mathematics & Statistics</h3>
+            <ul class="skill-items">
+                <li class="skill-item"><i class="fas fa-cube"></i>Linear Algebra</li>
+                <li class="skill-item"><i class="fas fa-chart-pie"></i>Probability & Statistics</li>
+            </ul>
+        </div>
+
+        <!-- Data Manipulation & Visualization Card -->
+        <div class="skill-card">
+            <h3 class="skill-title">Data Manipulation & Visualization</h3>
+            <ul class="skill-items">
+                <li class="skill-item"><i class="fas fa-table"></i>Pandas & NumPy</li>
+                <li class="skill-item"><i class="fas fa-chart-area"></i>Matplotlib</li>
+                <li class="skill-item"><i class="fas fa-chart-bar"></i>Seaborn & Plotly</li>
+                <li class="skill-item"><i class="fas fa-chart-line"></i>Power BI</li>
+            </ul>
+        </div>
+
+        <!-- Machine Learning & Deep Learning Card -->
+        <div class="skill-card">
+            <h3 class="skill-title">Machine Learning & Deep Learning</h3>
+            <ul class="skill-items">
+                <li class="skill-item"><i class="fas fa-brain"></i>Supervised & Unsupervised Learning</li>
+                <li class="skill-item"><i class="fas fa-network-wired"></i>Deep Learning</li>
+                <li class="skill-item"><i class="fas fa-toolbox"></i>Libraries (TensorFlow, PyTorch)</li>
+            </ul>
+        </div>
+
+        <!-- Data Engineering & Big Data Card -->
+        <div class="skill-card">
+            <h3 class="skill-title">Data Engineering & Big Data</h3>
+            <ul class="skill-items">
+                <li class="skill-item"><i class="fas fa-bolt"></i>Apache Spark & Hadoop</li>
+                <li class="skill-item"><i class="fas fa-cloud"></i>Cloud Platforms (AWS, GCP, Azure)</li>
+            </ul>
+        </div>
+
+        <!-- Model Deployment & MLOps Card -->
+        <div class="skill-card">
+            <h3 class="skill-title">Model Deployment & MLOps</h3>
+            <ul class="skill-items">
+                <li class="skill-item"><i class="fas fa-server"></i>Flask/Django/FastAPI</li>
+                <li class="skill-item"><i class="fab fa-docker"></i>Docker & Kubernetes</li>
+                <li class="skill-item"><i class="fas fa-tasks"></i>CI/CD Pipelines</li>
+            </ul>
+        </div>
+
+        <!-- Soft Skills Card -->
+        <div class="skill-card">
+            <h3 class="skill-title">Soft Skills</h3>
+            <ul class="skill-items">
+                <li class="skill-item"><i class="fas fa-puzzle-piece"></i>Problem-Solving</li>
+                <li class="skill-item"><i class="fas fa-comments"></i>Communication</li>
+                <li class="skill-item"><i class="fas fa-users"></i>Team Collaboration</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Intersection Observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.skill-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Add hover effect to cards
+        document.querySelectorAll('.skill-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-5px)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
