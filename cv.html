@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Resume Download</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2ecc71;
+            --secondary-color: #27ae60;
+            --accent-color: #e74c3c;
+            --text-dark: #2c3e50;
+            --text-light: #ecf0f1;
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a, #2c3e50);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            color: var(--text-light);
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .download-wrapper {
+            position: relative;
+            margin: 2rem 0;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Neon Glow Effect */
+        @keyframes neonPulse {
+            0%, 100% { filter: drop-shadow(0 0 5px var(--primary-color)); }
+            50% { filter: drop-shadow(0 0 20px var(--primary-color)); }
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1.5rem 3rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+            overflow: hidden;
+            animation: neonPulse 2s infinite;
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                transparent, 
+                rgba(255,255,255,0.2), 
+                transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(45deg) translateX(-200%); }
+            100% { transform: rotate(45deg) translateX(200%); }
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05) rotate(-2deg);
+            box-shadow: 0 10px 30px rgba(46, 204, 113, 0.4);
+        }
+
+        .download-btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .download-btn:hover i {
+            transform: translateY(-3px) rotate(10deg);
+        }
+
+        /* Particle Animation */
+        .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: radial-gradient(var(--primary-color), transparent);
+            border-radius: 50%;
+            animation: particleFloat linear infinite;
+        }
+
+        @keyframes particleFloat {
+            to { transform: translateY(-100vh) rotate(360deg); }
+        }
+
+        /* Confetti Animation */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--accent-color);
+            animation: confettiFall 2s ease-out;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-100vh) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(720deg); }
+        }
+
+        /* Enhanced Resume Container */
+        .resume-container {
+            max-width: 800px;
+            width: 90%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            transform: perspective(1000px) rotateX(10deg) scale(0.95);
+            opacity: 0;
+            animation: containerEntrance 1s forwards;
+        }
+
+        @keyframes containerEntrance {
+            to {
+                opacity: 1;
+                transform: perspective(1000px) rotateX(0) scale(1);
+            }
+        }
+
+        /* Hover Effect for Resume Sections */
+        .resume-section {
+            transition: var(--transition);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, 
+                rgba(255,255,255,0.05), 
+                transparent);
+        }
+
+        .resume-section:hover {
+            transform: translateX(20px);
+            background: linear-gradient(45deg, 
+                rgba(46, 204, 113, 0.1), 
+                transparent);
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .download-btn {
+                padding: 1.2rem 2rem;
+                font-size: 1rem;
+            }
+
+            .resume-container {
+                transform: none;
+                padding: 1.5rem;
+            }
+        }
+
+        /* Custom Checkmark Animation */
+        @keyframes checkmarkDraw {
+            to { stroke-dashoffset: 0; }
+        }
+
+        .checkmark {
+            width: 50px;
+            height: 50px;
+            stroke: white;
+            stroke-width: 2;
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: checkmarkDraw 0.6s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <div class="download-wrapper">
+        <button class="download-btn" id="downloadBtn">
+            <i class="fas fa-download"></i>
+            Download Resume
+        </button>
+        <a id="realDownload" href="ashish_dubey_Resume (3).pdf" download hidden></a>
+    </div>
+
+    <div class="resume-container">
+        <div class="resume-content">
+            <!-- Resume content here -->
+        </div>
+    </div>
+
+    <script>
+        // Enhanced Download Button Animation
+        const downloadBtn = document.getElementById('downloadBtn');
+        const realDownload = document.getElementById('realDownload');
+        const particles = document.getElementById('particles');
+
+        function createParticles(e) {
+            for(let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = e.clientX + 'px';
+                particle.style.top = e.clientY + 'px';
+                particle.style.width = Math.random() * 5 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDuration = Math.random() * 3 + 2 + 's';
+                particles.appendChild(particle);
+                
+                setTimeout(() => particle.remove(), 3000);
+            }
+        }
+
+        downloadBtn.addEventListener('click', function(e) {
+            // Create particle explosion
+            createParticles(e);
+
+            // Create confetti
+            for(let i = 0; i < 20; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.background = `hsl(${Math.random() * 360}, 70%, 50%)`;
+                confetti.style.animationDuration = Math.random() * 1 + 0.5 + 's';
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => confetti.remove(), 2000);
+            }
+
+            // Trigger download
+            realDownload.click();
+
+            // Show animated checkmark
+            const checkmark = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            checkmark.setAttribute('class', 'checkmark');
+            checkmark.setAttribute('viewBox', '0 0 24 24');
+            checkmark.innerHTML = '<path d="M20 6L9 17l-5-5"/>';
+            
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(0,0,0,0.8);
+                padding: 2rem;
+                border-radius: 20px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+                z-index: 1000;
+            `;
+            
+            notification.appendChild(checkmark);
+            const text = document.createElement('span');
+            text.textContent = 'Download Complete!';
+            text.style.color = 'white';
+            notification.appendChild(text);
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => notification.remove(), 500);
+            }, 2000);
+        });
+
+        // Add particles on mouse move
+        document.addEventListener('mousemove', (e) => {
+            if(Math.random() < 0.3) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = e.clientX + 'px';
+                particle.style.top = e.clientY + 'px';
+                particle.style.width = Math.random() * 3 + 1 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDuration = Math.random() * 5 + 3 + 's';
+                particles.appendChild(particle);
+                
+                setTimeout(() => particle.remove(), 3000);
+            }
+        });
+    </script>
+</body>
+</html>
