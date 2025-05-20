@@ -1,573 +1,513 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="font.css" />
-    <link rel="stylesheet" href="output.css" />
-    <link rel="stylesheet" href="style.css" />
-    <!-- Link Swiper's CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-    />
-
-    <!-- Demo styles -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me | Ashish Dubey</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-      .swiper {
-        width: 100%;
-        height: 100%;
-      }
+        :root {
+            --primary-color: #2ecc71;
+            --secondary-color: #27ae60;
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --easing: cubic-bezier(0.4, 0, 0.2, 1);
+            --animation-duration: 0.6s;
+        }
 
-      .swiper-slide {
-        text-align: center;
-        font-size: 18px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
+        .dark-mode {
+            --bg-color: #1a1a1a;
+            --text-color: #ffffff;
+        }
 
-      .swiper-button-next,
-      .swiper-button-prev {
-        color: #1788ae;
-      }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
 
-      .swiper-pagination-bullet {
-        background-color: #23b9eb;
-      }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.4s var(--easing);
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        .header {
+            position: fixed;
+            width: 100%;
+            padding: 1rem 5%;
+            background: rgba(var(--bg-color), 0.95);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s var(--easing);
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s var(--easing);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* About Section Styles */
+        .about-section {
+            padding: 120px 5% 80px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+            max-width: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            transform: translateY(0);
+            animation: float 6s var(--easing) infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-30px); }
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-image::after {
+            content: '';
+            position: absolute;
+            width: 120%;
+            height: 120%;
+            top: -10%;
+            left: -10%;
+            background: linear-gradient(45deg, 
+                var(--primary-color), 
+                var(--secondary-color));
+            z-index: 0;
+            border-radius: 30px;
+            filter: blur(40px);
+            opacity: 0.3;
+            animation: pulse 4s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.4; }
+        }
+
+        .about-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-title span {
+            display: inline-block;
+            transform: translateY(100%);
+            opacity: 0;
+            animation: slideUp 0.6s var(--easing) forwards;
+        }
+
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--primary-color);
+            margin: 1rem 0;
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: growLine 1s var(--easing) forwards;
+            animation-delay: 0.8s;
+        }
+
+        @keyframes growLine {
+            to { transform: scaleX(1); }
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            margin-top: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 10px;
+            height: 90%;
+            width: 2px;
+            background: var(--primary-color);
+            transform: scaleY(0);
+            transform-origin: top;
+            animation: drawLine 1s var(--easing) forwards;
+            animation-delay: 1s;
+        }
+
+        @keyframes drawLine {
+            to { transform: scaleY(1); }
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2.5rem;
+            padding-left: 30px;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.6s var(--easing);
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 5px;
+            width: 18px;
+            height: 18px;
+            background: var(--bg-color);
+            border: 3px solid var(--primary-color);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .timeline-date {
+            display: block;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .skill-card {
+            perspective: 1000px;
+            position: relative;
+            min-height: 200px;
+        }
+
+        .skill-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .skill-card:hover .skill-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .skill-card-front,
+        .skill-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .skill-card-front {
+            background: rgba(var(--primary-color), 0.1);
+        }
+
+        .skill-card-back {
+            background: var(--primary-color);
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .skill-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            transition: transform 0.3s var(--easing);
+        }
+
+        .skill-card:hover .skill-icon {
+            transform: scale(1.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .about-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .timeline {
+                padding-left: 0;
+            }
+
+            .timeline::before {
+                display: none;
+            }
+
+            .timeline-item {
+                padding-left: 0;
+                text-align: left;
+            }
+
+            .timeline-item::before {
+                display: none;
+            }
+        }
+
+        /* Dark Mode Toggle */
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            transition: transform 0.3s var(--easing);
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(180deg);
+        }
+
+        /* Particle Background */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            opacity: 0.1;
+        }
     </style>
-    <script src="matter.js"></script>
-  </head>
-  <body class="bg-[#111] text-white font-['Nunito']">
-    <section class="flex flex-col justify-between h-screen">
-      <header
-        class="z-10 pointer-events-none flex items-center justify-between w-full px-4 mt-4 max-w-screen-xl mx-auto"
-      >
-        <svg
-          width="70"
-          height="70"
-          viewBox="0 0 406 368"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M314.516 203.174L314.516 349.104L162.117 208.727M314.516 203.174L282.653 203.26M314.516 203.174L337.498 203.26L380.617 170.782L314.516 170.782M162.117 208.727L117.661 170.634L157.117 170.782M162.117 208.727L65.1165 301.139L20.176 301.139L137.099 188.83M200.117 170.782L282.653 96.1739L282.653 170.782M200.117 170.782L282.653 170.782M200.117 170.782L157.117 170.782M282.653 203.26L210.462 202.796L282.653 270.76L282.653 203.26ZM282.653 170.782L314.516 170.782M157.117 170.782L315.751 20.1061L314.516 170.782"
-            stroke="currentColor"
-            stroke-width="10"
-          />
-        </svg>
-        <nav class="flex gap-6 mx-8 pointer-events-auto">
-            <a href="#projects" class="hover:text-[#23b9eb] transition-colors">Projects</a>
-            <a href="skill.html" class="hover:text-[#23b9eb] transition-colors">Skills</a>
-            <a href="contact.html" class="hover:text-[#23b9eb] transition-colors">Contact</a>
-          </nav>
-         <div class="flex gap-4 pointer-events-auto"> 
-          <!-- <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="feather feather-sun"
-          > -->
-            <!-- <circle cx="12" cy="12" r="5"></circle>
-            <line x1="12" y1="1" x2="12" y2="3"></line>
-            <line x1="12" y1="21" x2="12" y2="23"></line>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-            <line x1="1" y1="12" x2="3" y2="12"></line>
-            <line x1="21" y1="12" x2="23" y2="12"></line>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-          </svg>  -->
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="hidden"
-          >
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-          </svg>
-          <a href="tel:8765998219"
-            ><svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="feather feather-phone"
-            >
-              <path
-                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
-              ></path></svg
-          ></a>
-          <a
-            href="https://wa.me/918765998219?text=Hi, How are you?"
-            target="_blank"
-          >
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              data-prefix="fab"
-              data-icon="whatsapp"
-              class="svg-inline--fa fa-whatsapp fa-w-14"
-              role="img"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 448 512"
-            >
-              <path
-                fill="currentColor"
-                d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"
-              ></path>
-            </svg>
-          </a>
-        </div>
-      </header>
-      <div class="absolute inset-0 hidden md:block" id="wrapper-canvas"></div>
-      <div class="flex -mt-10 relative">
-        <div class="w-full px-4 max-w-screen-xl mx-auto">
-          <svg
-            viewBox="0 0 406 368"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            class="pointer-events-none absolute top-0 left-1/2 -translate-y-[80px] sm:-translate-y-[180px] -translate-x-1/2 w-[300px] sm:w-[400px] md:w-[650px]"
-          >
-            <path
-              d="M314.899 203.5L314.899 349.43L162.5 209.053M314.899 203.5L283.037 203.586M314.899 203.5L337.881 203.586L381 171.109L314.899 171.109M162.5 209.053L118.044 170.96L157.5 171.109M162.5 209.053L65.5 301.465L20.5595 301.465L137.482 189.156M200.5 171.109L283.037 96.5L283.037 171.109M200.5 171.109L283.037 171.109M200.5 171.109L157.5 171.109M283.037 203.586L210.846 203.123L283.037 271.086L283.037 203.586ZM283.037 171.109L314.899 171.109M157.5 171.109L316.135 20.4322L314.899 171.109"
-              stroke="#1F2667"
-              stroke-opacity="0.9"
-              stroke-width="10"
-            />
-            <path
-              d="M314.899 203.5L314.899 349.43L162.5 209.053M314.899 203.5L283.037 203.586M314.899 203.5L337.881 203.586L381 171.109L314.899 171.109M162.5 209.053L118.044 170.96L157.5 171.109M162.5 209.053L65.5 301.465L20.5595 301.465L137.482 189.156M200.5 171.109L283.037 96.5L283.037 171.109M200.5 171.109L283.037 171.109M200.5 171.109L157.5 171.109M283.037 203.586L210.846 203.123L283.037 271.086L283.037 203.586ZM283.037 171.109L314.899 171.109M157.5 171.109L316.135 20.4322L314.899 171.109"
-              stroke="url(#paint0_linear)"
-              stroke-width="10"
-            />
-            <defs>
-              <linearGradient
-                id="paint0_linear"
-                x1="205.549"
-                y1="20.0169"
-                x2="204.338"
-                y2="342.461"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stop-color="#1595B6" />
-                <stop offset="1" stop-color="#1595B6" stop-opacity="0" />
-              </linearGradient>
-            </defs>
-          </svg>
-          <div class="relative ml-4 md:ml-12">
-            <h1
-              class="pointer-events-none text-4xl md:text-[64px] font-['Spartan'] mr-12"
-            >
-              Ashish Dubey
-            </h1>
-            <p
-              class="pointer-events-none font-['Merriweather'] italic my-4 md:my-8"
-            >
-            AI engineer
-            </p>
-            <button
-              class="bg-[#4595eb] py-2 px-5 rounded font-extrabold bg-gradient-to-l from-[#1595b6] to-[#1f2667e6] relative hover:scale-110 ease-in-out duration-100 group"
-            >
-              About Me
-
-              <svg
-                xmlns:dc="http://purl.org/dc/elements/1.1/"
-                xmlns:cc="http://creativecommons.org/ns#"
-                xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-                xmlns:svg="http://www.w3.org/2000/svg"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-                version="1.1"
-                x="0px"
-                y="0px"
-                width="44"
-                height="44"
-                viewBox="0 0 100 100"
-                class="absolute top-1/2 -translate-y-1/2 -right-7 group-hover:-right-8 ease-in-out duration-100"
-              >
-                <g transform="translate(0,-952.36218)">
-                  <path
-                    style="
-                      text-indent: 0;
-                      text-transform: none;
-                      direction: ltr;
-                      block-progression: tb;
-                      baseline-shift: baseline;
-                      color: #000000;
-                      enable-background: accumulate;
-                    "
-                    d="m 88.999835,1002.3621 c 0,-0.4628 -0.2799,-1.0773 -0.5639,-1.3755 l -15.9997,-17.00026 c -0.747,-0.7723 -1.9572,-0.8618 -2.8281,-0.078 -0.7786,0.7007 -0.798,2.0673 -0.078,2.8282 l 12.8435,13.62516 -69.37347,0 c -1.1046,0 -2,0.8954 -2,2 0,1.1046 0.8954,2.0001 2,2.0001 l 69.37347,0 -12.8435,13.6252 c -0.7199,0.7608 -0.6688,2.0938 0.078,2.8281 0.7885,0.7752 2.0925,0.7062 2.8281,-0.078 l 15.9997,-17.0002 c 0.4701,-0.4611 0.556,-0.9052 0.5639,-1.3748 z"
-                    fill="#fff"
-                    fill-opacity="1"
-                    stroke="white"
-                    stroke-width="2"
-                    marker="none"
-                    visibility="visible"
-                    display="inline"
-                    overflow="visible"
-                  />
-                </g>
-              </svg>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <h1 class="logo"></h1>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link active">About</a></li>
+                <li><a href="skill.html" class="nav-link">Skills</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <button class="theme-toggle" id="theme-toggle">
+                <i class="fas fa-moon"></i>
             </button>
-          </div>
-        </div>
+        </nav>
+    </header>
 
-        <ul class="ml-auto space-y-6 text-[#b0b2c3] absolute right-8">
-          <li>
-            <a
-              href="https://www.linkedin.com/in/ashish-dubey-8904a52b3/"
-              target="_blank"
-            >
-              <svg
-                class="w-7 hover:text-white"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 448 512"
-              >
-                <path
-                  fill="currentColor"
-                  d="M100.3 448H7.4V148.9h92.9zM53.8 108.1C24.1 108.1 0 83.5 0 53.8a53.8 53.8 0 0 1 107.6 0c0 29.7-24.1 54.3-53.8 54.3zM447.9 448h-92.7V302.4c0-34.7-.7-79.2-48.3-79.2-48.3 0-55.7 37.7-55.7 76.7V448h-92.8V148.9h89.1v40.8h1.3c12.4-23.5 42.7-48.3 87.9-48.3 94 0 111.3 61.9 111.3 142.3V448z"
-                />
-              </svg>
-            </a>
-          </li>
-          <li>
-           
-          </li>
-          <li>
-            <a href="https://www.instagram.com/priyanshu_dubey_866/profilecard/?igsh=eWxqNG03bW5jdXkz">
-              <svg
-                class="w-7 hover:text-white"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 448 512"
-              >
-                <path
-                  fill="currentColor"
-                  d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"
-                />
-              </svg>
-            </a>
-          </li>
-          <li>
-            <a href="mailto:dubeyashish8957@gamil.com" target="_blank">
-              <svg
-                class="w-7 hover:text-white"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 512 512"
-              >
-                <path
-                  fill="currentColor"
-                  d="M64 112c-8.8 0-16 7.2-16 16v22.1L220.5 291.7c20.7 17 50.4 17 71.1 0L464 150.1V128c0-8.8-7.2-16-16-16H64zM48 212.2V384c0 8.8 7.2 16 16 16H448c8.8 0 16-7.2 16-16V212.2L322 328.8c-38.4 31.5-93.7 31.5-132 0L48 212.2zM0 128C0 92.7 28.7 64 64 64H448c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128z"
-                />
-              </svg>
-            </a>
-          </li>
-          <li>
-           
-                <path
-                  d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z"
-                />
-              </svg>
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div
-        class="relative self-center after:content-[''] after:absolute after:w-[2px] after:h-5 after:bg-[#444] after:left-1/2 after:-translate-x-1/2 after:top-[100px]"
-      >
-      </section>
-    <footer class="flex flex-col items-center pb-10">
-      <p class="text-xs text-gray-300">Ashish Dubey © 2025</p>
-      <div class="black-logo my-4">
-        <svg
-          width="50"
-          height="50"
-          viewBox="0 0 406 368"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M314.899 203.5L314.899 349.43L162.5 209.053M314.899 203.5L283.037 203.586M314.899 203.5L337.881 203.586L381 171.109L314.899 171.109M162.5 209.053L118.044 170.96L157.5 171.109M162.5 209.053L65.5 301.465L20.5595 301.465L137.482 189.156M200.5 171.109L283.037 96.5L283.037 171.109M200.5 171.109L283.037 171.109M200.5 171.109L157.5 171.109M283.037 203.586L210.846 203.123L283.037 271.086L283.037 203.586ZM283.037 171.109L314.899 171.109M157.5 171.109L316.135 20.4322L314.899 171.109"
-            stroke="#1F2667"
-            stroke-opacity="0.9"
-            stroke-width="16"
-          ></path>
-          <path
-            d="M314.899 203.5L314.899 349.43L162.5 209.053M314.899 203.5L283.037 203.586M314.899 203.5L337.881 203.586L381 171.109L314.899 171.109M162.5 209.053L118.044 170.96L157.5 171.109M162.5 209.053L65.5 301.465L20.5595 301.465L137.482 189.156M200.5 171.109L283.037 96.5L283.037 171.109M200.5 171.109L283.037 171.109M200.5 171.109L157.5 171.109M283.037 203.586L210.846 203.123L283.037 271.086L283.037 203.586ZM283.037 171.109L314.899 171.109M157.5 171.109L316.135 20.4322L314.899 171.109"
-            stroke="url(#paint0_linear)"
-            stroke-width="16"
-          ></path>
-          <defs>
-            <linearGradient
-              id="paint0_linear"
-              x1="205.549"
-              y1="20.0169"
-              x2="204.338"
-              y2="342.461"
-              gradientUnits="userSpaceOnUse"
-            >
-              <stop stop-color="#1595B6"></stop>
-              <stop offset="1" stop-color="#1595B6" stop-opacity="0"></stop>
-            </linearGradient>
-          </defs>
-        </svg>
-      </div>
-    </footer>
+    <main>
+        <section class="about-section">
+            <div class="particles"></div>
+            
+            <div class="about-container">
+                <div class="about-image">
+                    <img src="pho.jpg" alt="About Me" loading="lazy">
+                </div>
+                
+                <div class="about-content">
+                    <h2 class="section-title">
+                        <span>A</span><span>b</span><span>o</span><span>u</span><span>t</span> 
+                        <span>M</span><span>e</span>
+                    </h2>
+                    
+                    <p class="about-text">
+                        Data Scientist specializing in building data-driven solutions and predictive models
+                    </p>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <span class="timeline-date"></span>
+                            <h3>Data Scientist @AI Solutions</h3>
+                            <p>Developed and deployed machine learning models for business insights and automation</p>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="timeline-date"></span>
+                            <h3>Data Analyst @Tech Analytics</h3>
+                            <p>Performed data analysis, visualization, and predictive modeling to drive decision-making.</p>
+                        </div>
+                    </div>
 
-    <!-- Initialize Swiper -->
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <div class="skill-card-inner">
+                                <div class="skill-card-front">
+                                    <i class="fas fa-code skill-icon"></i>
+                                    <h3>Machine Learning</h3>
+                                    <p>Scikit-Learn, TensorFlow, PyTorch</p>
+                                </div>
+                                <div class="skill-card-back">
+                                    <h3>Proficiency</h3>
+                                    <div class="skill-progress">
+                                        <div class="progress-bar" style="width: 90%"></div>
+                                    </div>
+                                    <p>3+ month experience</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Add more skill cards -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
     <script>
-      var swiper = new Swiper(".mySwiper", {
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
-        pagination: {
-          el: ".swiper-pagination",
-          clickable: true,
-        },
-      });
+        // Dark Mode Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        document.body.classList.toggle('dark-mode', localStorage.getItem('darkMode') === 'enabled');
+
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', 
+                document.body.classList.contains('dark-mode') ? 'enabled' : 'disabled');
+            themeToggle.querySelector('i').classList.toggle('fa-sun');
+        });
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.timeline-item, .skill-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Random particles animation
+        function createParticles() {
+            const particles = document.querySelector('.particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.style.cssText = `
+                    position: absolute;
+                    width: 2px;
+                    height: 2px;
+                    background: var(--primary-color);
+                    border-radius: 50%;
+                    left: ${Math.random() * 100}%;
+                    top: ${Math.random() * 100}%;
+                    animation: particle ${5 + Math.random() * 5}s linear infinite;
+                `;
+                particles.appendChild(particle);
+            }
+        }
+
+        // Initialize animations
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            
+            // Stagger timeline animations
+            document.querySelectorAll('.timeline-item').forEach((item, index) => {
+                item.style.transitionDelay = `${index * 0.2}s`;
+            });
+
+            // 3D card hover effect
+            document.querySelectorAll('.skill-card').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    card.style.transform = `
+                        rotate3d(
+                            ${(y - rect.height/2) / 15}, 
+                            ${-(x - rect.width/2) / 15}, 
+                            0, 
+                            10deg
+                        )
+                    `;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'rotate3d(0, 0, 0, 0)';
+                });
+            });
+        });
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.12.0/matter.min.js"></script>
-    <script src="https://cdn/jsdelivr.net/npm/matter-wrap@0.2.0/build/matter-wrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/matter-attractors@0.1.6/build/matter-attractors.min.js"></script>
-  </body>
-</main>
-<script>
-    var canvas = document.querySelector("#wrapper-canvas");
-
-var dimensions = {
-  width: window.innerWidth,
-  height: window.innerHeight,
-};
-
-Matter.use("matter-attractors");
-Matter.use("matter-wrap");
-
-function runMatter() {
-  // module aliases
-  var Engine = Matter.Engine,
-    Events = Matter.Events,
-    Runner = Matter.Runner,
-    Render = Matter.Render,
-    World = Matter.World,
-    Body = Matter.Body,
-    Mouse = Matter.Mouse,
-    Common = Matter.Common,
-    Composite = Matter.Composite,
-    Composites = Matter.Composites,
-    Bodies = Matter.Bodies;
-
-  // create engine
-  var engine = Engine.create();
-
-  engine.world.gravity.y = 0;
-  engine.world.gravity.x = 0;
-  engine.world.gravity.scale = 0.1;
-
-  // create renderer
-  var render = Render.create({
-    element: canvas,
-    engine: engine,
-    options: {
-      showVelocity: false,
-      width: dimensions.width,
-      height: dimensions.height,
-      wireframes: false,
-      background: "transparent",
-    },
-  });
-
-  // create runner
-  var runner = Runner.create();
-
-  // Runner.run(runner, engine);
-  // Render.run(render);
-
-  // create demo scene
-  var world = engine.world;
-  world.gravity.scale = 0;
-
-  // create a body with an attractor
-  var attractiveBody = Bodies.circle(
-    render.options.width / 2,
-    render.options.height / 2,
-    Math.max(dimensions.width / 25, dimensions.height / 25) / 2,
-    {
-      render: {
-        fillStyle: `#000`,
-        strokeStyle: `#000`,
-        lineWidth: 0,
-      },
-
-      isStatic: true,
-      plugin: {
-        attractors: [
-          function (bodyA, bodyB) {
-            return {
-              x: (bodyA.position.x - bodyB.position.x) * 1e-6,
-              y: (bodyA.position.y - bodyB.position.y) * 1e-6,
-            };
-          },
-        ],
-      },
-    }
-  );
-
-  World.add(world, attractiveBody);
-
-  // add some bodies that to be attracted
-  for (var i = 0; i < 60; i += 1) {
-    let x = Common.random(0, render.options.width);
-    let y = Common.random(0, render.options.height);
-    let s =
-      Common.random() > 0.6 ? Common.random(10, 80) : Common.random(4, 60);
-    let poligonNumber = Common.random(3, 6);
-    var body = Bodies.polygon(
-      x,
-      y,
-      poligonNumber,
-      s,
-
-      {
-        mass: s / 20,
-        friction: 0,
-        frictionAir: 0.02,
-        angle: Math.round(Math.random() * 360),
-        render: {
-          fillStyle: "#222222",
-          strokeStyle: `#000000`,
-          lineWidth: 2,
-        },
-      }
-    );
-
-    World.add(world, body);
-
-    let r = Common.random(0, 1);
-    var circle = Bodies.circle(x, y, Common.random(2, 8), {
-      mass: 0.1,
-      friction: 0,
-      frictionAir: 0.01,
-      render: {
-        fillStyle: r > 0.3 ? `#27292d` : `#444444`,
-        strokeStyle: `#000000`,
-        lineWidth: 2,
-      },
-    });
-
-    World.add(world, circle);
-
-    var circle = Bodies.circle(x, y, Common.random(2, 20), {
-      mass: 6,
-      friction: 0,
-      frictionAir: 0,
-      render: {
-        fillStyle: r > 0.3 ? `#334443` : `#222222`,
-        strokeStyle: `#111111`,
-        lineWidth: 4,
-      },
-    });
-
-    World.add(world, circle);
-
-    var circle = Bodies.circle(x, y, Common.random(2, 30), {
-      mass: 0.2,
-      friction: 0.6,
-      frictionAir: 0.8,
-      render: {
-        fillStyle: `#191919`,
-        strokeStyle: `#111111`,
-        lineWidth: 3,
-      },
-    });
-
-    World.add(world, circle);
-  }
-
-  // add mouse control
-  var mouse = Mouse.create(render.canvas);
-
-  Events.on(engine, "afterUpdate", function () {
-    if (!mouse.position.x) return;
-    // smoothly move the attractor body towards the mouse
-    Body.translate(attractiveBody, {
-      x: (mouse.position.x - attractiveBody.position.x) * 0.12,
-      y: (mouse.position.y - attractiveBody.position.y) * 0.12,
-    });
-  });
-
-  // return a context for MatterDemo to control
-  let data = {
-    engine: engine,
-    runner: runner,
-    render: render,
-    canvas: render.canvas,
-    stop: function () {
-      Matter.Render.stop(render);
-      Matter.Runner.stop(runner);
-    },
-    play: function () {
-      Matter.Runner.run(runner, engine);
-      Matter.Render.run(render);
-    },
-  };
-
-  Matter.Runner.run(runner, engine);
-  Matter.Render.run(render);
-  return data;
-}
-
-function debounce(func, wait, immediate) {
-  var timeout;
-  return function () {
-    var context = this,
-      args = arguments;
-    var later = function () {
-      timeout = null;
-      if (!immediate) func.apply(context, args);
-    };
-    var callNow = immediate && !timeout;
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-    if (callNow) func.apply(context, args);
-  };
-}
-
-function setWindowSize() {
-  let dimensions = {};
-  dimensions.width = $(window).width();
-  dimensions.height = $(window).height();
-
-  m.render.canvas.width = $(window).width();
-  m.render.canvas.height = $(window).height();
-  return dimensions;
-}
-
-let m = runMatter();
-setWindowSize();
-$(window).resize(debounce(setWindowSize, 250));
-
-</script>
+</body>
 </html>
